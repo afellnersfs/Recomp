@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Recomp</string>
+    <string name="widget_water_label">Water — tap to log</string>
+    <string name="widget_stats_label">Steps &amp; Calories</string>
+    <string name="widget_streak_label">Streak &amp; PRs</string>
+    <string name="health_privacy">Recomp reads steps, heart rate, resting heart rate, sleep, calories burned and exercise sessions from Health Connect. This data is shown only inside the app on this device. Nothing is uploaded, shared, or sent anywhere — the app has no server and makes no network calls. You can revoke access at any time in Health Connect settings.</string>
+</resources>
