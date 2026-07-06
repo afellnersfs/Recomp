@@ -27,13 +27,18 @@ jobs:
       - name: Rename APK
         run: cp app/build/outputs/apk/debug/app-debug.apk recomp.apk
 
+      - name: Read version
+        id: ver
+        run: echo "version=$(grep -oP 'versionName = "\K[^"]+' app/build.gradle.kts)" >> "$GITHUB_OUTPUT"
+
       # Publishes/refreshes a "latest" release so the APK is one tap to
-      # download on the phone (Releases page > recomp.apk).
+      # download on the phone. The release name carries the version — the
+      # app's in-app update checker parses it.
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
-          name: Recomp — latest build
+          name: Recomp v${{ steps.ver.outputs.version }}
           files: recomp.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

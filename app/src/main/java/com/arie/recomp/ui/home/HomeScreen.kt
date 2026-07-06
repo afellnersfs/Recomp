@@ -42,6 +42,8 @@ import com.arie.recomp.ui.AppCard
 import com.arie.recomp.ui.ProgressRing
 import com.arie.recomp.ui.SectionLabel
 import com.arie.recomp.ui.openUrl
+import com.arie.recomp.ui.theme.Accent
+import com.arie.recomp.update.UpdateChecker
 import com.arie.recomp.widgets.Widgets
 import java.time.LocalDate
 import java.time.LocalTime
@@ -61,6 +63,9 @@ fun HomeScreen(nav: NavHostController) {
         scope.launch { snapshot = hc.todaySnapshot() }
     }
     LaunchedEffect(Unit) { snapshot = hc.todaySnapshot() }
+
+    var updateVersion by remember { mutableStateOf<String?>(null) }
+    LaunchedEffect(Unit) { updateVersion = UpdateChecker.newerVersion() }
 
     var week by remember { mutableStateOf(WorkoutRepository.WeekStats(0, 3, 0)) }
     var nextTemplate by remember { mutableStateOf<WorkoutTemplate?>(null) }
@@ -83,6 +88,17 @@ fun HomeScreen(nav: NavHostController) {
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        updateVersion?.let { v ->
+            AppCard(onClick = { openUrl(context, UpdateChecker.DOWNLOAD_URL) }) {
+                Text("⬆️  Update available — v$v", style = MaterialTheme.typography.titleMedium, color = Accent)
+                Text(
+                    "Tap to download, then open the file to install. All your data stays.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+
         Column {
             Text(greeting, style = MaterialTheme.typography.headlineLarge)
             Text(
