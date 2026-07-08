@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Android Auto Backup (pre-Android 12): back up the Room DB and settings,
-     skip progress photos (can exceed the 25 MB backup quota). -->
+<!-- Android Auto Backup (pre-Android 12): back up the Room DB and settings.
+     Progress photos are simply not included (can exceed the 25 MB quota). -->
 <full-backup-content>
     <include domain="database" path="." />
     <include domain="sharedpref" path="." />
     <include domain="file" path="datastore/" />
-    <exclude domain="file" path="photos/" />
 </full-backup-content>
