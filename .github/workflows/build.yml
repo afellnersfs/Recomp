@@ -19,13 +19,21 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Build debug APK
+      - name: Decode signing keystore
+        run: echo "$SIGNING_KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/recomp.p12"
+        env:
+          SIGNING_KEYSTORE_B64: ${{ secrets.SIGNING_KEYSTORE_B64 }}
+
+      - name: Build signed release APK
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleRelease --no-daemon
+        env:
+          SIGNING_KEYSTORE_PATH: ${{ runner.temp }}/recomp.p12
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
 
       - name: Rename APK
-        run: cp app/build/outputs/apk/debug/app-debug.apk recomp.apk
+        run: cp app/build/outputs/apk/release/app-release.apk recomp.apk
 
       - name: Read version
         id: ver

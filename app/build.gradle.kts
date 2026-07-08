@@ -13,14 +13,33 @@ android {
         applicationId = "com.arie.recomp"
         minSdk = 28
         targetSdk = 36
-        versionCode = 3
-        versionName = "2.0"
+        versionCode = 4
+        versionName = "2.0.1"
+    }
+
+    // Permanent signing key so updates always install over the previous
+    // version. CI provides the keystore via secrets; local Android Studio
+    // builds fall back to the default debug signing.
+    val ciKeystore = System.getenv("SIGNING_KEYSTORE_PATH")
+    if (ciKeystore != null) {
+        signingConfigs {
+            create("shared") {
+                storeFile = file(ciKeystore)
+                storeType = "pkcs12"
+                storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+                keyAlias = "recomp"
+                keyPassword = System.getenv("SIGNING_STORE_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            if (ciKeystore != null) {
+                signingConfig = signingConfigs.getByName("shared")
+            }
         }
     }
     compileOptions {
