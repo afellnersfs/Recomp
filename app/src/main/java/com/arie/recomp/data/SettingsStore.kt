@@ -32,6 +32,7 @@ data class Settings(
     val shabbatEnd: String = "21:30",              // Saturday, HH:mm
     val dumbbellMaxLbs: Double = 15.0,
     val hasFreeBarbell: Boolean = false,
+    val goalWeightLbs: Double = 0.0,               // 0 = no goal band on the weight chart
     val onboarded: Boolean = false
 )
 
@@ -56,6 +57,7 @@ class SettingsStore(private val context: Context) {
         val shabbatEnd = stringPreferencesKey("shabbatEnd")
         val dumbbellMaxLbs = doublePreferencesKey("dumbbellMaxLbs")
         val hasFreeBarbell = booleanPreferencesKey("hasFreeBarbell")
+        val goalWeightLbs = doublePreferencesKey("goalWeightLbs")
         val onboarded = booleanPreferencesKey("onboarded")
     }
 
@@ -81,6 +83,7 @@ class SettingsStore(private val context: Context) {
             shabbatEnd = p[K.shabbatEnd] ?: d.shabbatEnd,
             dumbbellMaxLbs = p[K.dumbbellMaxLbs] ?: d.dumbbellMaxLbs,
             hasFreeBarbell = p[K.hasFreeBarbell] ?: d.hasFreeBarbell,
+            goalWeightLbs = p[K.goalWeightLbs] ?: d.goalWeightLbs,
             onboarded = p[K.onboarded] ?: d.onboarded
         )
     }
@@ -108,6 +111,7 @@ class SettingsStore(private val context: Context) {
             p[K.shabbatEnd] = next.shabbatEnd
             p[K.dumbbellMaxLbs] = next.dumbbellMaxLbs
             p[K.hasFreeBarbell] = next.hasFreeBarbell
+            p[K.goalWeightLbs] = next.goalWeightLbs
             p[K.onboarded] = next.onboarded
         }
     }

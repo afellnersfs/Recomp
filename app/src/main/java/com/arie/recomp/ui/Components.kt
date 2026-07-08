@@ -58,18 +58,26 @@ fun openUrl(context: Context, url: String) {
     runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
 }
 
+/** Legacy alias — every card in the app is a frosted glass pane now. */
 @Composable
 fun AppCard(
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
-) {
-    var m = modifier
-        .fillMaxWidth()
-        .clip(RoundedCornerShape(20.dp))
-        .background(MaterialTheme.colorScheme.surface)
-    if (onClick != null) m = m.clickable(onClick = onClick)
-    Column(m.padding(16.dp), content = content)
+) = GlassCard(modifier = modifier, onClick = onClick, content = content)
+
+/** Big numeral + small unit label — the standard metric pattern. */
+@Composable
+fun BigNumber(value: String, unit: String, color: Color = Color.Unspecified) {
+    Row(verticalAlignment = Alignment.Bottom) {
+        Text(value, style = MaterialTheme.typography.headlineMedium, color = color)
+        Text(
+            " $unit",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(bottom = 3.dp)
+        )
+    }
 }
 
 @Composable

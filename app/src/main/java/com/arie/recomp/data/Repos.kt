@@ -40,7 +40,9 @@ object Graph {
     fun init(context: Context) {
         if (initialized) return
         appContext = context.applicationContext
-        db = Room.databaseBuilder(appContext, AppDatabase::class.java, "recomp.db").build()
+        db = Room.databaseBuilder(appContext, AppDatabase::class.java, "recomp.db")
+            .addMigrations(AppDatabase.MIGRATION_1_2)
+            .build()
         settings = SettingsStore(appContext)
         workouts = WorkoutRepository(db.workoutDao(), settings)
         nutrition = NutritionRepository(db.nutritionDao())

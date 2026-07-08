@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -71,8 +72,8 @@ private val defaultTypes = listOf("Weight", "Waist", "Chest", "Arms")
 @Composable
 fun BodyScreen() {
     var tab by remember { mutableIntStateOf(0) }
-    Column(Modifier.fillMaxSize()) {
-        TabRow(selectedTabIndex = tab, containerColor = MaterialTheme.colorScheme.background) {
+    Column(Modifier.fillMaxSize().statusBarsPadding()) {
+        TabRow(selectedTabIndex = tab, containerColor = androidx.compose.ui.graphics.Color.Transparent) {
             Tab(selected = tab == 0, onClick = { tab = 0 }, text = { Text("Measurements") })
             Tab(selected = tab == 1, onClick = { tab = 1 }, text = { Text("Photos") })
         }

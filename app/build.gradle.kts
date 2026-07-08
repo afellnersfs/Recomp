@@ -13,8 +13,8 @@ android {
         applicationId = "com.arie.recomp"
         minSdk = 28
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 3
+        versionName = "2.0"
     }
 
     buildTypes {
@@ -67,4 +67,7 @@ dependencies {
 
     // Progress photos
     implementation("io.coil-kt:coil-compose:2.7.0")
+
+    // Liquid Glass backdrop blur
+    implementation("dev.chrisbanes.haze:haze:1.5.0")
 }

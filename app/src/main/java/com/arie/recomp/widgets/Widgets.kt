@@ -48,8 +48,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-private val WidgetBg = Color(0xFF16181D)
-private val Accent = Color(0xFFFF6B00)
+private val WidgetBg = Color(0xFF141926)
+private val Accent = Color(0xFF2E5CFF)
 private val Track = Color(0xFF2A2E36)
 private val Dim = Color(0xFF9BA1AC)
 

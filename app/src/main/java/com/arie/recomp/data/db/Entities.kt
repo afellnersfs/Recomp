@@ -54,6 +54,15 @@ data class WaterLog(
     val loggedAt: Long
 )
 
+/** Daily computed sleep/readiness scores — persisted so trends survive Health Connect's retention window. */
+@Entity(tableName = "daily_score")
+data class DailyScore(
+    @PrimaryKey val day: String,     // yyyy-MM-dd
+    val sleepScore: Int?,
+    val readiness: Int?,
+    val updatedAt: Long
+)
+
 @Entity(tableName = "calorie_log")
 data class CalorieLog(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,

@@ -65,6 +65,13 @@ interface BodyDao {
 }
 
 @Dao
+interface ScoreDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun upsert(score: DailyScore)
+    @Query("SELECT * FROM daily_score WHERE day = :day") suspend fun forDay(day: String): DailyScore?
+    @Query("SELECT * FROM daily_score ORDER BY day") fun all(): Flow<List<DailyScore>>
+}
+
+@Dao
 interface NutritionDao {
     @Insert suspend fun insertWater(w: WaterLog)
     @Query("SELECT COALESCE(SUM(cups), 0) FROM water_log WHERE day = :day")
